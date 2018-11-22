@@ -25,13 +25,17 @@ namespace Bearer
     {
         static void Main(string[] args)
         {
-            string consumerKey = "#####";
-            string consumerSecret = "*****";
-            string accessToken;
+            string url = args[0].ToString();
+            string consumerKey = args[1].ToString();
+            string consumerSecret = args[2].ToString();
+            string accessToken  ;
+           
 
             byte[] byte1 = Encoding.ASCII.GetBytes("grant_type=client_credentials");
 
-            HttpWebRequest bearerReq = WebRequest.Create("https://api.byu.edu/token") as HttpWebRequest;
+            ServicePointManager   .ServerCertificateValidationCallback +=  (sender, cert, chain, sslPolicyErrors) => true;
+
+            HttpWebRequest bearerReq = WebRequest.Create(url) as HttpWebRequest;
             bearerReq.Accept = "application/json";
             bearerReq.Method = "POST";
             bearerReq.ContentType = "application/x-www-form-urlencoded";
